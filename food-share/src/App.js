@@ -6,8 +6,7 @@ const Admin = loadable(()=>import('./pages/Admin'))
 // const Administrator = loadable(()=>import('./pages/Administrator'))
 // const User = loadable(()=>import('./pages/User'))
 // const Menu = loadable(()=>import('./pages/Menu'))
-const MenuTypesList = loadable(()=>import('./pages/MenuTypes/MenuTypesList'))
-const MenuTypesAdd = loadable(()=>import('./pages/MenuTypes/MenuTypesAdd'))
+const MenuTypes = loadable(()=>import('./pages/MenuTypes'))
 
 class App extends Component{
   render() {
@@ -21,8 +20,7 @@ class App extends Component{
                 {/* <Route path='/admin/administrator' component={Administrator}></Route> */}
                 {/* <Route path='/admin/user' component={User}></Route> */}
                 {/* <Route path='/admin/menu' component={Menu}></Route> */}
-                <Route exact path='/admin/menutypeslist' component={MenuTypesList}></Route>
-                <Route exact path='/admin/menutypesadd' component={MenuTypesAdd}></Route>
+                <Route exact path='/admin/menutypes' component={MenuTypes}></Route>
             </Admin>
           )
         }}></Route>

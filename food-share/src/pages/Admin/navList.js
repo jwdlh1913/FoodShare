@@ -41,21 +41,7 @@ export default [
     key: '5',
     title: '菜谱类别管理',
     path: '/admin/menutypes',
-    icon: 'shopping-cart',
-    children: [
-      {
-        key: '5-1',
-        title: '菜谱分类列表',
-        path: '/admin/menutypeslist',
-        icon: 'unordered-list'
-      },
-      {
-        key: '5-2',
-        title: '菜谱类别添加',
-        path: '/admin/menutypesadd',
-        icon: 'plus-circle'
-      }
-    ]
+    icon: 'shopping-cart'
   },
   {
     key: '10',
