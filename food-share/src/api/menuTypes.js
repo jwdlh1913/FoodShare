@@ -1,6 +1,10 @@
 import axios from '../utils/axios'
 // 菜谱类别增删改查
 class MenuTypes {
+  typeListAll(){
+    let url = '/tiger/menutypes/all'
+    return axios.get(url)
+  }
   typesList(page=1,pageSize=5){
     let url = '/tiger/menutypes'
     return axios.get(url,{params:{page,pageSize}})
