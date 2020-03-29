@@ -20,22 +20,22 @@ export default [
   {
     key: '4',
     title: '菜谱管理',
-    path: '/admin/menu',
+    path: '/admin/menulist',
     icon: 'shopping-cart',
-    children: [
-      {
-        key: '4-1',
-        title: '菜谱列表',
-        path: '/admin/menulist',
-        icon: 'unordered-list'
-      },
-      {
-        key: '4-2',
-        title: '菜谱添加',
-        path: '/admin/menuadd',
-        icon: 'plus-circle'
-      }
-    ]
+    // children: [
+    //   {
+    //     key: '4-1',
+    //     title: '菜谱列表',
+    //     path: '/admin/menulist',
+    //     icon: 'unordered-list'
+    //   },
+    //   {
+    //     key: '4-2',
+    //     title: '菜谱添加',
+    //     path: '/admin/menuadd',
+    //     icon: 'plus-circle'
+    //   }
+    // ]
   },
   {
     key: '5',

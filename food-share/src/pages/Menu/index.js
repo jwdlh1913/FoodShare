@@ -1,6 +1,6 @@
 import React,{ Component }  from 'react'
 import MenuApi from '../../api/menu'
-import {message,Table,Pagination,Button,Popconfirm} from 'antd'
+import {message,Table,Pagination,Button,Popconfirm,Card} from 'antd'
 import style from './goodsList.module.less'
 
 class GoodsList extends Component{
@@ -20,7 +20,7 @@ class GoodsList extends Component{
       }},
       {title:'主材',dataIndex:'ingredients',key:'ingredients',width:80},
       {title:'主图',dataIndex:'albums',key:'albums',width:80,render(albums){
-        return (<img width='80' height='80' alt='' src={albums} />)
+        return (<img width='80' height='80' alt='' src={'http://localhost:3000'+albums} />)
       }},
       {title:'用户',dataIndex:'userId',key:'userId',width:80},
       {title:'操作',key:'action',width:80,fixed:'right',render:(recode)=>{
@@ -59,25 +59,27 @@ class GoodsList extends Component{
     let {list,columns,count,page,pageSize} = this.state//解构this.state数据
     return(
       <div>
-        <Button
-          type="primary" size='large' onClick={()=>{
-            this.props.history.push('/admin/goodsadd')
-          }}
-        >添加菜品</Button>
-        {/* 表格 */}
-        <Table
-          columns={columns}
-          dataSource={list}
-          pagination={false}
-          rowKey="_id"
-          className={style.td}
-        />
-        {/* 分页 */}
-        <Pagination current={page} total={count} showQuickJumper pageSize={pageSize} onChange={(page,pageSize)=>{
-          this.setState({page},()=>{
-            this.getListData()
-          })
-        }} />
+          <Card title="菜谱列表">
+          <Button
+            type="primary" size='large' onClick={()=>{
+              this.props.history.push('/admin/menuadd')
+            }}
+          >添加菜品</Button>
+          {/* 表格 */}
+          <Table
+            columns={columns}
+            dataSource={list}
+            pagination={false}
+            rowKey="_id"
+            className={style.td}
+          />
+          {/* 分页 */}
+          <Pagination current={page} total={count} showQuickJumper pageSize=   {pageSize} onChange={(page,pageSize)=>{
+            this.setState({page},()=>{
+              this.getListData()
+            })
+          }} />
+          </Card>
       </div>
     )
   }

@@ -8,5 +8,13 @@ class Menus{
     let url = `/tiger/goods/${_id}`
     return axios.delete(url)
   }
+  img(payload){
+    let url = '/tiger/upload'
+    return axios.post(url,payload)
+  }
+  add(payload){
+    let url = '/tiger/goods'
+    return axios.post(url,payload)
+  }
 }
 export default new Menus()
