@@ -131,7 +131,7 @@ class MenuTypes extends Component{
           ></Pagination>
         </Card>
         {/* 添加模态框 */}
-        <Modal title='添加类别' visible={visible_a} onOk={this.handleOk} onCancel={()=>{ this.setState({visible_a:false}) }}
+        <Modal title='添加类别' visible={visible_a} onOk={this.handleOk} onCancel={()=>{ this.setState({visible_a:false,val:''}) }}
         okText="确认"
         cancelText="取消"
         >
@@ -140,7 +140,7 @@ class MenuTypes extends Component{
           }} style={{borderRadius:'10px',width:300}}/>
         </Modal>
         {/* 修改模态框 */}
-        <Modal title='修改类别' visible={visible_u} onOk={this.updateMenuTypes} onCancel={()=>{ this.setState({visible_u:false}) }}
+        <Modal title='修改类别' visible={visible_u} onOk={this.updateMenuTypes} onCancel={()=>{ this.setState({visible_u:false,val:''}) }}
         okText="确认"
         cancelText="取消"
         >
