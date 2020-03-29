@@ -1,6 +1,6 @@
 import React,{ Component }  from 'react'
 import MenuApi from '../../api/menu'
-import {message ,Table ,Pagination,Button} from 'antd'
+import {message,Table,Pagination,Button,Popconfirm} from 'antd'
 import style from './goodsList.module.less'
 
 class GoodsList extends Component{
@@ -15,7 +15,7 @@ class GoodsList extends Component{
       {title:'类别',dataIndex:'kind',key:'kind',width:80,render(kind){
         console.log(kind); 
         return (
-          <span>{kind? kind.kindName:"暂无类别"}</span>
+          <span>{kind? kind.menutypesName:"暂无类别"}</span>
         ) 
       }},
       {title:'主材',dataIndex:'ingredients',key:'ingredients',width:80},
@@ -26,19 +26,31 @@ class GoodsList extends Component{
       {title:'操作',key:'action',width:80,fixed:'right',render:(recode)=>{
         return (
           <div>
-            <Button type="danger" size='small'>删除</Button>
+            <Popconfirm
+              title="你确定要删除吗"
+              onConfirm={()=>{this.delGoods(recode._id)}}
+              okText="确定"
+              cancelText="取消"
+            >
+              <Button type="danger" size='small'>删除</Button>
+            </Popconfirm>
             <Button type="primary" size='small'>修改</Button>
           </div>
         )
       }}
     ]
   }
+  delGoods = async(_id)=>{
+    let {code,msg} = await MenuApi.del(_id)
+    if(code){return message.error(msg)}
+    this.getListData()
+  }
   componentDidMount(){//组件挂载完获取数据
     this.getListData()//获取数据函数
   }
   getListData = async() =>{
     let {page,pageSize} = this.state
-    let {code,msg,list,count} = (await MenuApi.list(page,pageSize)).data    
+    let {code,msg,list,count} = (await MenuApi.list(page,pageSize))   
     console.log(code,msg,list,count);
     if(code !== 0){return message.error(msg)}
     this.setState({list,count})    
@@ -47,6 +59,11 @@ class GoodsList extends Component{
     let {list,columns,count,page,pageSize} = this.state//解构this.state数据
     return(
       <div>
+        <Button
+          type="primary" size='large' onClick={()=>{
+            this.props.history.push('/admin/goodsadd')
+          }}
+        >添加菜品</Button>
         {/* 表格 */}
         <Table
           columns={columns}
