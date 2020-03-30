@@ -1,6 +1,11 @@
 import axios from '../utils/axios'
 
 class Admin {
+login(userName,passWord){
+  let url = '/tiger/admin/login'
+  return axios.post(url,{userName,passWord})
+}
+
  list(){
      let url = '/tiger/admin'
      return axios.get(url)

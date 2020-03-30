@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {HashRouter,Route,Redirect} from 'react-router-dom'
 import loadable from './utils/loadable'
-// const Login = loadable(()=>import('./pages/Login'))
+const Login = loadable(()=>import('./pages/Login'))
 const Admin = loadable(()=>import('./pages/Admin'))
 const Administrator = loadable(()=>import('./pages/Administrator'))
 // const User = loadable(()=>import('./pages/User'))
@@ -15,7 +15,7 @@ class App extends Component{
     return (
       <HashRouter>
         <Redirect exact from='/' to ='/admin'></Redirect>
-        {/* <Route path='/login' component={Login}></Route> */}
+        <Route path='/login' component={Login}></Route>
         <Route path='/admin' render={()=>{
           return (
             <Admin>
