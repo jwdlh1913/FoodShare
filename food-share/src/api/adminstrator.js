@@ -1,7 +1,7 @@
 import axios from '../utils/axios'
 
 class Admin {
- List(){
+ list(){
      let url = '/tiger/admin'
      return axios.get(url)
  }
@@ -13,10 +13,10 @@ class Admin {
     let url ='/tiger/admin'
     return axios.delete(url+'/'+_id)
   }
-  put(_id,userName,passWord){
+/*   put(_id,userName,passWord){
     let url ='/tiger/admin'
     return axios.put(url+'/'+_id,{userName,passWord})
-  }
+  } */
 }
 
-export default Admin;
+export default new Admin();

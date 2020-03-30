@@ -74,12 +74,12 @@ class Admins extends Component{
      this.refreshList()
     }
    render(){
-         let {dataSource,visible,spinning,columns,status} = this.state
+         let {dataSource,visible,spinning,columns} = this.state
    return(
        <div className={style.admins}>
           <Card  title="管理员列表">
-          <Button type="primary" icon={<PlusOutlined/>} onClick={()=>{
-           this.setState({visible:true,status=1})
+          <Button type="primary"  onClick={()=>{
+           this.setState({visible:true})
           }}>
           添加</Button>
           <Spin spinning={spinning}>
@@ -90,7 +90,6 @@ class Admins extends Component{
          <Modal
           title="管理员添加"
           visible={visible}
-          status={status}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
         >
