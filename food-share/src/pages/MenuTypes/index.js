@@ -116,7 +116,7 @@ class MenuTypes extends Component{
           }}>添加类别</Button>
           <Spin spinning={spinning}>
             <Table columns={columns} dataSource={list}
-            rowKey='_id' pagination={false}
+            rowKey='_id' pagination={false} className={Style.table}
             />
           </Spin>
           {/* 分页器 */}

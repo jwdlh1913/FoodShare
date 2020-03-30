@@ -1,0 +1,61 @@
+.detailBox{
+  height:80vh;
+  min-height: 300px;
+  overflow-y: auto;
+  font-size: 16px;
+  position: relative;
+  .back{
+    border-radius: 15px;
+    position:absolute;
+    top:10px;
+  }
+  h1{
+    font-size:30px;
+    font-weight:900;
+    text-align: center;
+    margin: 10px 0;
+  }
+  .middleBox{
+    display:flex;
+    .left{
+      width: 350px;
+      height: 350px;
+      img{
+        width: 350px;
+        height: 350px;
+      }
+    }
+    .right{
+      flex:1;
+      padding:20px;
+      display:flex;
+      flex-direction: column;
+      justify-content: space-around;
+      span{
+        font-weight:900;
+      }
+    }
+  }
+  .content{
+    h4{
+      font-size:22px;
+      font-weight:900;
+      margin:20px 0;
+    }
+    .imtro{
+      p{
+        text-indent:2em
+      }
+    }
+    .steps{
+      margin:10px 0;
+      p{
+        font-weight:900;
+      }
+      img{
+        width: 300px;
+        height: 200px;
+      }
+    }
+  }
+}

@@ -4,6 +4,11 @@ class Menus{
     let url = '/tiger/goods'
     return axios.get(url,{params:{page,pageSize}})
   }
+  // 查找某一条数据
+  getOne(id){
+    let url = '/tiger/goods/'+id
+    return axios.get(url)
+  }
   del(_id){
     let url = `/tiger/goods/${_id}`
     return axios.delete(url)

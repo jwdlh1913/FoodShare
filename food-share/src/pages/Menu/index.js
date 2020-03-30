@@ -72,6 +72,13 @@ class GoodsList extends Component{
             pagination={false}
             rowKey="_id"
             className={style.td}
+            onRow={record=>{
+              return{
+                onClick:()=>{
+                  this.props.history.push('/admin/menudetail/' + record._id)
+                }
+              }
+            }}
           />
           {/* 分页 */}
           <Pagination current={page} total={count} showQuickJumper pageSize=   {pageSize} onChange={(page,pageSize)=>{
