@@ -1,6 +1,6 @@
 import React,{ Component }  from 'react'
 import MenuApi from '../../api/menu'
-import {message,Table,Pagination,Button,Popconfirm,Card} from 'antd'
+import {message,Table,Pagination,Button,Spin,Popconfirm,Card} from 'antd'
 import style from './goodsList.module.less'
 
 class GoodsList extends Component{
@@ -9,6 +9,7 @@ class GoodsList extends Component{
     pageSize:2,
     list:[],
     count:0,
+    spinning:false,
     columns:[
       {title:'id',dataIndex:'_id',key:'_id',fixed:"left",width:80},
       {title:'菜名',dataIndex:'title',key:'title',width:80},
@@ -55,13 +56,14 @@ class GoodsList extends Component{
   }
   getListData = async() =>{
     let {page,pageSize} = this.state
+    this.setState({spinning:true})//加载中效果
     let {code,msg,list,count} = (await MenuApi.list(page,pageSize))   
-    console.log(code,msg,list,count);
+    // console.log(code,msg,list,count);
     if(code !== 0){return message.error(msg)}
-    this.setState({list,count})    
+    this.setState({list,count,spinning:false})    
   }
   render(){
-    let {list,columns,count,page,pageSize} = this.state//解构this.state数据
+    let {list,columns,count,page,pageSize,spinning} = this.state//解构this.state数据
     return(
       <div>
           <Card title="菜谱列表">
@@ -70,6 +72,7 @@ class GoodsList extends Component{
               this.props.history.push('/admin/menuadd')
             }}
           >添加菜品</Button>
+          <Spin spinning={spinning}>
           {/* 表格 */}
           <Table
             columns={columns}
@@ -77,14 +80,9 @@ class GoodsList extends Component{
             pagination={false}
             rowKey="_id"
             className={style.td}
-            // onRow={record=>{
-            //   return{
-            //     onClick:()=>{
-            //       this.props.history.push('/admin/menudetail/' + record._id)
-            //     }
-            //   }
-            // }}
+            style={{marginBottom:20}}
           />
+          </Spin>
           {/* 分页 */}
           <Pagination current={page} total={count} showQuickJumper pageSize=   {pageSize} onChange={(page,pageSize)=>{
             this.setState({page},()=>{

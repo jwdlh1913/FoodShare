@@ -23,17 +23,11 @@ class GoodsAdd extends Component{
     if(code){return message.error(msg)}
     message.success('添加成功,正在跳转到菜谱列表')
     this.props.history.replace('/admin/menulist')
-    
   }
-  
   async componentDidMount(){
     let {list} = await menuTypesApi.typeListAll()
     this.setState({types:list})
-    console.log(list);
-    
   }
-  
-
   //图片绑定的配置函数
   handleChange = info => {//上传状态效果
     if (info.file.status === 'uploading') {//上传中开启效果
@@ -81,21 +75,10 @@ class GoodsAdd extends Component{
         if(code){return message.error(msg)}
         this.setState({albums:path})
         message.success('图片上传成功');
-        
       },
       headers: {
         authorization: 'authorization-text',
       },
-      // onChange(info) {
-      //   if (info.file.status !== 'uploading') {
-      //     console.log(info.file, info.fileList);
-      //   }
-      //   if (info.file.status === 'done') {
-      //     message.success(`${info.file.name} file uploaded successfully`);
-      //   } else if (info.file.status === 'error') {
-      //     message.error(`${info.file.name} file upload failed.`);
-      //   }
-      // },
     };
     //表单配置项
     const layout = {
@@ -141,22 +124,6 @@ class GoodsAdd extends Component{
           })}
       </Select>
       </Form.Item>
-
-      {/* <Form.Item
-        name="kind"
-        label="类别"
-        value={kind}
-        rules={[
-          { type: 'array', required: true, message: '请选择类别' },
-        ]}
-        onChange={(e)=>{
-          console.log(e.target);
-          
-          this.setState({kind:e.target.value})
-        }} 
-      >
-        <Cascader options={residences} />
-      </Form.Item> */}
       {/* 主材 */}
       <Form.Item name={['ingredients']} label="主材" rules={[{ required: true }]}>
         <Input onChange={(e)=>{

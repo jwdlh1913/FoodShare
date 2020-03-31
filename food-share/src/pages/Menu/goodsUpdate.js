@@ -23,26 +23,17 @@ class GoodsUpdate extends Component{
     if(!this.state.albums){return message.info('请先上传图片')}
     let {code,msg} = await menuApi.update(id,this.state)
     if(code){return message.error(msg)}
+    message.success('修改成功')
     this.props.history.replace('/admin/menulist')
-    
-    // let {code,msg} = await menuApi.add(this.state)
-    // if(code){return message.error(msg)}
-    // message.success('添加成功,正在跳转到菜谱列表')
-    // this.props.history.replace('/admin/menulist')
-    
   }
-  
   async componentDidMount(){//组件挂载完
     let {id} = this.props.match.params//获取要修改的菜品id
+    this.setState({spinning:true})//开启加载中效果
     let {result} = await menuApi.findOne(id)//获取id对应的菜品信息
-    console.log(result);
-    
+    // console.log(result);    
     let {list} = await menuTypesApi.typeListAll()//获取types类型数组
-    this.setState({types:list,...result[0]})   
-    
+    this.setState({types:list,...result[0],spinning:false})//关闭加载中效果   
   }
-  
-
   //图片绑定的配置函数
   handleChange = info => {//上传状态效果
     if (info.file.status === 'uploading') {//上传中开启效果
@@ -74,7 +65,7 @@ class GoodsUpdate extends Component{
   }
   //渲染列表
   render(){
-    let {albums,types,title,tags,ingredients,burden,kind,imtro} = this.state
+    let {albums,types,title,tags,ingredients,burden,kind,imtro,spinning} = this.state
     //图片配置项
     const uploadButton = (
       <div>
@@ -112,6 +103,7 @@ class GoodsUpdate extends Component{
     /* --------------------------渲染标签--------------------------*/
     return(
       <Card title="菜品添加">
+      <Spin spinning={spinning}>
         <Form {...layout} name="nest-messages" validateMessages={validateMessages}>
       {/* 菜名 */}
       <Form.Item label="菜名" rules={[{ required: true }]}>
@@ -176,6 +168,7 @@ class GoodsUpdate extends Component{
         </Button>
       </Form.Item>
     </Form>
+    </Spin>
       </Card>
     )
   }
