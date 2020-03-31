@@ -4,7 +4,7 @@ import style from './User.less'
 import userApi from '../../api/user.js'
 
 
-class Admins extends Component {
+class Users extends Component {
     state = {
         dataSource: [],
         visible: false,
@@ -97,7 +97,7 @@ class Admins extends Component {
                   columns    表头数据
                   rowKey     设置为唯一索引字段
               */}
-                    <Button type="primary" icon="plus" onClick={() => {
+                    <Button type="primary" onClick={() => {
                         this.setState({ visible: true })
                     }}>添加</Button>
                     <Spin spinning={spinning}>
@@ -119,4 +119,4 @@ class Admins extends Component {
     }
 }
 
-export default Admins;
+export default Users;
