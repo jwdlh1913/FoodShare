@@ -6,11 +6,9 @@ import { UserOutlined,LockOutlined } from '@ant-design/icons';
 
  class Login  extends  Component{
     onFinish=async (values)=>{
-        console.log(values);
     let userName = values.username
     let passWord = values.password
     let result = await Adminapi.login(userName,passWord)
-    console.log(result);
     if(result.code ===404 ){
       message.error('登录失败');
     }else{
@@ -66,7 +64,7 @@ import { UserOutlined,LockOutlined } from '@ant-design/icons';
             {/* 记住密码 */}
             <Form.Item>
               <Form.Item name="remember" valuePropName="checked" noStyle>
-                <Checkbox>记住密码</Checkbox>
+                <Checkbox>记住账号</Checkbox>
               </Form.Item>
             </Form.Item>
             {/* 登录 */}

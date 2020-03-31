@@ -1,13 +1,16 @@
 import React, { Component } from "react";
-import {Card,Table,Button,Modal,notification,Spin,Popconfirm,message} from 'antd'
+import {Card,Table,Button,Modal,notification,Spin,Popconfirm,message,Pagination} from 'antd'
 import style from './index.module.less'
 import Adminsapi from '../../api/adminstrator'
  
 class Admins extends Component{
      state={
-        dataSource:[],
+      administratorList:[],
         visible:false,
         spinning:false,
+        page: 1,
+        pageSize: 5,
+        count: 0,
         columns:[
           {
               title: 'id',
@@ -20,7 +23,7 @@ class Admins extends Component{
             key: 'userName',
           },
           { 
-            title: '删除',
+            title: '删除操作',
             key: 'action',
             render:(record)=>{
               return(
@@ -64,27 +67,36 @@ class Admins extends Component{
      }
 
      refreshList=async ()=>{
+      let { page, pageSize } = this.state
       this.setState({spinning:true})
-      let result = await Adminsapi.list()
-      console.log(result)
-      this.setState({dataSource:result.administratorList,spinning:false})
+      let  {administratorList,count,code,msg} = await Adminsapi.list(page, pageSize)
+      if(code!==0){return message.error(msg)}
+      this.setState({administratorList,count,spinning:false})
      }  
 
     componentDidMount(){
      this.refreshList()
     }
    render(){
-         let {dataSource,visible,spinning,columns} = this.state
-   return(
-       <div className={style.admins}>
+         let {administratorList,visible,spinning,columns,count, page, pageSize,} = this.state
+      return(
+        <div className={style.admins}>
           <Card  title="管理员列表">
           <Button type="primary"  onClick={()=>{
            this.setState({visible:true})
           }}>
           添加</Button>
           <Spin spinning={spinning}>
-         <Table dataSource={dataSource} columns={columns} rowKey="_id" />;
-         </Spin>
+         <Table dataSource={administratorList} pagination={false} columns={columns} rowKey="_id" />
+          <Pagination style={{'marginTop':'10px'}}
+            current={page} total={count} pageSize={pageSize}
+            onChange={(page,pageSize)=>{         
+              this.setState({page,pageSize},()=>{
+                this.refreshList()
+              })   
+            }}
+           ></Pagination>
+            </Spin>
         </Card>
          {/*添加对话框 默认是不显示的*/}
          <Modal
@@ -97,9 +109,8 @@ class Admins extends Component{
          管理员密码:<input  type="text" ref="ps"/><br/>
         </Modal>
     </div>
-   )
+    )
   }
-
 }
 
 
