@@ -21,7 +21,7 @@ class Admins extends Component{
           },
           { 
             title: '删除',
-            dataIndex: 'action',
+            key: 'action',
             render:(record)=>{
               return(
                 <div>

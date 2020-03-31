@@ -26,6 +26,9 @@ class GoodsList extends Component{
       {title:'操作',key:'action',width:80,fixed:'right',render:(recode)=>{
         return (
           <div>
+            <Button type="warn" size='small' onClick={()=>{
+              this.props.history.push('/admin/menudetail/'+recode._id)
+            }}>详细</Button><br />
             <Popconfirm
               title="你确定要删除吗"
               onConfirm={()=>{this.delGoods(recode._id)}}
@@ -33,8 +36,10 @@ class GoodsList extends Component{
               cancelText="取消"
             >
               <Button type="danger" size='small'>删除</Button>
-            </Popconfirm>
-            <Button type="primary" size='small'>修改</Button>
+            </Popconfirm><br />
+            <Button type="primary" size='small' onClick={()=>{
+              this.props.history.push('/admin/menuUpdate/'+recode._id)
+            }}>修改</Button>
           </div>
         )
       }}
@@ -72,13 +77,13 @@ class GoodsList extends Component{
             pagination={false}
             rowKey="_id"
             className={style.td}
-            onRow={record=>{
-              return{
-                onClick:()=>{
-                  this.props.history.push('/admin/menudetail/' + record._id)
-                }
-              }
-            }}
+            // onRow={record=>{
+            //   return{
+            //     onClick:()=>{
+            //       this.props.history.push('/admin/menudetail/' + record._id)
+            //     }
+            //   }
+            // }}
           />
           {/* 分页 */}
           <Pagination current={page} total={count} showQuickJumper pageSize=   {pageSize} onChange={(page,pageSize)=>{

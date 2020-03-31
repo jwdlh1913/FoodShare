@@ -21,5 +21,13 @@ class Menus{
     let url = '/tiger/goods'
     return axios.post(url,payload)
   }
+  findOne(_id){
+    let url = '/tiger/goods/'+_id
+    return axios.get(url)
+  }
+  update(_id,payload){
+    let url = '/tiger/goods/'+_id
+    return axios.put(url,payload)
+  }
 }
 export default new Menus()

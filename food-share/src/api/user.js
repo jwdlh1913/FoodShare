@@ -4,6 +4,10 @@ class Admin {
         let url = '/tiger/user'
         return axios.get(url)
     }
+    login(userName,passWord){
+        let url = '/tiger/admin/login'
+        return axios.post(url,{userName,passWord})
+      }
     insert(userName, passWord) {
         let url = '/tiger/user'
         return axios.post(url, { userName, passWord })
