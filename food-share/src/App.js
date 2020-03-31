@@ -10,6 +10,7 @@ const GoodsList = loadable(()=>import('./pages/Menu/index.js'))
 const GoodsAdd = loadable(()=>import('./pages/Menu/goodsAdd.js'))
 const GoodsUpdate = loadable(()=>import('./pages/Menu/goodsUpdate'))
 const MenuDetail = loadable(()=>import('./pages/Menu/detail'))
+const Setting =loadable(()=>import('./pages/Setting'))
 
 class App extends Component{
   render() {
@@ -27,6 +28,7 @@ class App extends Component{
                 <Route path='/admin/menuadd' component={GoodsAdd}></Route>
                 <Route path='/admin/menuUpdate/:id' component={GoodsUpdate}></Route>
                 <Route path='/admin/menudetail/:id' component={MenuDetail}></Route>
+                <Route path='/admin/set' component={Setting}></Route>
             </Admin>
           )
         }}></Route>

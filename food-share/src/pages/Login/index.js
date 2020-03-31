@@ -12,11 +12,12 @@ import { UserOutlined,LockOutlined } from '@ant-design/icons';
     let result = await Adminapi.login(userName,passWord)
     console.log(result);
     if(result.code ===404 ){
-        message.error('登录失败');
+      message.error('登录失败');
     }else{
-        message.success('登录成功，2s后跳转首页',2,()=>{
-    this.props.history.replace("/admin")
-    })
+      message.success('登录成功，2s后跳转首页',2,()=>{
+        localStorage.setItem('id',result.id)
+        this.props.history.replace("/admin")
+      })
     }
     }
 

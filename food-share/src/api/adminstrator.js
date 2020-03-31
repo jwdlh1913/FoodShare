@@ -1,6 +1,10 @@
 import axios from '../utils/axios'
 
 class Admin {
+  updatePassword(id,oldPassword,newPassword){
+    let url = '/tiger/admin/updatePassword/' + id
+    return axios.put(url,{oldPassword,newPassword})
+  }
 login(userName,passWord){
   let url = '/tiger/admin/login'
   return axios.post(url,{userName,passWord})
