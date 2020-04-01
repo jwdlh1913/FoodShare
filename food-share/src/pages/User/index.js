@@ -7,8 +7,10 @@ import userApi from '../../api/user.js'
 class Users extends Component {
     state = {
         dataSource: [],
-        visible: false,
+        visibleAdd: false,
+        visibleChange: false,
         spinning: false,
+        changeId: null,
 
         //表头信息👇表头信息有几个dataSource就有几个key值还有一个自己的key
         columns: [
@@ -43,6 +45,9 @@ class Users extends Component {
                             >
                                 <Button type='danger' size='small'>删除</Button>
                             </Popconfirm>
+                            <Button type='primary' size='small' onClick={() => {
+                                this.setState({ visibleChange: true, changeId: record._id })
+                            }}>修改</Button>
                         </div>
                     )
                 },
@@ -63,17 +68,29 @@ class Users extends Component {
     handleOk = async () => {
         let userName = this.refs.us.value
         let passWord = this.refs.ps.value
-        let result = await userApi.insert({ userName, passWord })
+        let result = await userApi.insert(userName, passWord)
         if (result.code !== 0) { return notification.error({ description: '用户添加失败，请详细检查传输', message: '错误', duration: 1.5 }) }
         notification.success({ description: '用户已添加，模态框即将关闭', message: '成功', duration: 1.5 })
-        this.setState({ visible: false })
+        this.setState({ visibleAdd: false })
+        this.refreshList()
+    }
+
+    //修改用户
+    changeDone = async () => {
+        let userName = this.refs.newUs.value
+        let passWord = this.refs.newPs.value
+        let id = this.state.changeId
+        let result = await userApi.change(id, { userName, passWord })
+        if (result.code !== 0) { return notification.error({ description: '用户修改失败，请详细检查输入信息', message: '错误', duration: 1.5 }) }
+        notification.success({ description: '用户修改成功，对话框即将关闭', message: '成功', duration: 1.5 })
+        this.setState({ visibleChange: false })
         this.refreshList()
     }
 
 
     //模态框关闭函数
     handleCancel = () => {
-        this.setState({ visible: false })
+        this.setState({ visibleAdd: false })
     }
 
     //刷新列表数据
@@ -88,16 +105,12 @@ class Users extends Component {
         this.refreshList()
     }
     render() {
-        let { dataSource, visible, spinning, columns } = this.state
+        let { dataSource, visibleAdd, visibleChange, spinning, columns } = this.state
         return (
             <div className={style.admins}>
                 <Card title='用户列表'>
-                    {/* dataSource 表格内容数据
-                  columns    表头数据
-                  rowKey     设置为唯一索引字段
-              */}
                     <Button type="primary" onClick={() => {
-                        this.setState({ visible: true })
+                        this.setState({ visibleAdd: true })
                     }}>添加</Button>
                     <Spin spinning={spinning}>
                         <Table dataSource={dataSource} columns={columns} rowKey='_id'></Table>
@@ -106,13 +119,24 @@ class Users extends Component {
                 {/* 添加的模态框 */}
                 <Modal
                     title="用户添加"
-                    visible={visible}
+                    visible={visibleAdd}
                     onOk={this.handleOk}
                     onCancel={this.handleCancel}
                 >
                     用户名:<input type="text" ref='us' /><br />
-            密码:<input type="text" ref='ps' /><br />
+                    密码:<input type="text" ref='ps' /><br />
                 </Modal>
+
+                <Modal
+                    title="用户修改"
+                    visible={visibleChange}
+                    onOk={this.changeDone}
+                    onCancel={this.handleCancel}
+                >
+                    新用户名:<input type="text" ref='newUs' /><br />
+                    新密码:<input type="text" ref='newPs' /><br />
+                </Modal>
+
             </div>
         );
     }
