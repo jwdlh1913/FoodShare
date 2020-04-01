@@ -53,7 +53,7 @@ class Users extends Component {
 
     del = async (_id) => {
         // 获取id 掉接口 刷新界面
-        let result = await userApi.delete(_id)
+        let result = await userApi.del(_id)
         // 根据结果进行
         if (result.code !== 0) { return false }
         this.refreshList()
@@ -61,7 +61,6 @@ class Users extends Component {
 
     //模态框确认函数
     handleOk = async () => {
-
         let userName = this.refs.us.value
         let passWord = this.refs.ps.value
         let result = await userApi.insert({ userName, passWord })
